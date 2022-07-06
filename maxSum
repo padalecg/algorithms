@@ -1,0 +1,46 @@
+#Given a series of N smart bricks where brick i, in order, has speed Si , determine the maximum total speed that can be obtained.
+
+#input format
+  #The first line provides N, the number of smart bricks in the row.
+  #The second line has N values, separated by spaces, indicating the speed of each smart brick (S0 through SN-1 ).
+#constraints 
+  #1 ≤ N ≤ 106
+  #1 ≤ Si ≤ 1010
+#output
+  #A single number indicating the maximum total speed possible.
+
+#example
+#input
+  #5
+  #20 10 1 10 20
+#output 
+  #41
+#reason why
+  #There are five smart bricks, with speeds of 20, 10, 1, 10, and 20, respectively.
+  #If broken into the first, middle, and last bricks, we will have a total speed of 41 (no other legal combination can produce more than 41).
+
+
+
+def find_max_sum(arr):
+    including = 0 
+    
+    current_max = 0 #my current max 
+    for i in arr: #runs through array 
+        if current_max > including: # checks if the max is greater than what i have
+          new_excl = current_max
+        else:
+          new_excl = including
+        including = current_max + i
+        current_max = new_excl
+    if current_max >including:
+      return current_max #returns max
+    else:
+      return including
+
+
+firstNum = int(input()) 
+arr = input().split(" ")
+test_list = [int(i) for i in arr] #change arr into ints
+print(find_max_sum(test_list)) # calls my function with  changed list of ints
+
+
